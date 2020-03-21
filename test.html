@@ -1,0 +1,197 @@
+<html>
+    <head>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+            }
+
+            .wrap{
+                padding: 30px 20px;
+                width: 400px;
+                height: 400px;
+                border: #000 solid 1px;
+            }
+
+            #show-num{
+                width: 400px;
+                height: 80px;
+                background-color: #333;
+                border: none;
+                text-align: right;
+                color: #ffffff;
+                font-size: 3em;
+                font-weight: 700;
+            }
+
+            .button{
+                margin-top:40px;
+            }
+
+            .buttons>input{
+                margin: 10px;
+                width: 76px;
+                height: 50px;
+            }
+
+            .bottonNum>input{
+                margin: 10px;
+                width: 76px;
+                height: 50px;
+            }
+            
+
+        </style>
+    </head>
+
+    <body>
+        <div class="wrap">
+            <input id="show-num" readonly="ture" value=""></input>
+            <div class="buttons">
+                <input value="c" type="button" id="clear-entry"></input>
+
+                <input value="+" type="button" id="add" class="operation"></input>
+                <input value="-" type="button" id="subtract" class="operation"></input>
+                <input value="*" type="button" id="multiply" class="operation"></input>
+                <input value="/" type="button" id="divide" class="operation"></input>
+
+                <input value="1" type="button" id="one"class="num_buttom"></input>
+                <input value="2" type="button" id="two" class="num_buttom"></input>
+                <input value="3" type="button" id="three" class="num_buttom"></input>
+                <input value="4" type="button" id="four" class="num_buttom"></input>
+                <input value="5" type="button" id="five" class="num_buttom"></input>
+                <input value="6" type="button" id="six" class="num_buttom"></input>
+                <input value="7" type="button" id="seven" class="num_buttom"></input>
+                <input value="8" type="button" id="eight" class="num_buttom"></input>
+                <input value="9" type="button" id="nine" class="num_buttom"></input>
+                <input value="0" type="button" id="zero" class="num_buttom"></input>
+
+                <input value="=" type="button" id="done" class="num_buttom"></input>
+            </div>
+        </div>
+
+        <script>
+            window.onload = function(){
+
+            var showNum = document.getElementById("show-num");
+            var clearEntry = document.getElementById("clear-entry");
+            var add = document.getElementById("add");
+            var sub = document.getElementById("subtract");
+            var multiply = document.getElementById("multiply");
+            var divide = document.getElementById("divide");
+
+
+
+
+            var number = function(){
+                this.num1 = "0";
+                this.num2 = "0";
+                this.num1ImportEnd = false; //num1是否输入完成
+                this.operation = "";
+
+                this.imputNum = function(n){
+                    if(this.num1ImportEnd == false){
+                        this.num1 += n;
+                    }else{
+                        this.num2 += n;
+                    }
+                }
+
+                //返回数字的int 参数：1返回num1，2返回num2
+                this.getNumInt = function(num){
+
+                    if(arguments.length == 0){
+                        if(this.num1ImportEnd == false){
+                            return parseInt(this.num1);
+                        }else{
+                            return parseInt(this.num2);
+                        }
+                    }else if(arguments.length == 1){
+                        return num==1? parseInt(this.num1):parseInt(this.num2);
+                    }
+                }
+
+                //把运算结果移动到num1，然后num2清空。用于连续的运算操作，比如10+2+5
+                //先把10+2的结果移动到num1，然后腾空num2准备输入。
+                this.exChangeNum = function(num){
+                    this.num1 = num;
+                    this.num2 = "";
+                    this.num1ImportEnd = true;
+                }
+
+                //根据符号计算结果返回
+                this.operationNum = function(){
+                    
+                    var num,n1,n2;
+                    n1 = this.getNumInt(1);
+
+                    //如果用户没有输入第二个数字，n1,n2相等
+                    if(this.num2 == ""){
+                        n2 = n1;   
+                    }else{
+                        n2 = this.getNumInt(2);
+                    }
+                    
+                    switch(this.operation){
+                    case "+":
+                        num = n1+n2;
+                    break;
+
+                    case "-":
+                        num = n1-n2;
+                    break;
+
+                    case "*":
+                        num = n1*n2;
+                    break;
+
+                    case "/":
+                        num = n1/n2;
+                    break;
+
+                    default:
+                        num = n1;
+                    break;
+                    }
+
+                    this.exChangeNum(num);
+                    return num;
+                }
+            }
+
+            var num1 = new number;
+            
+            function setShowNum(n){
+                showNum.setAttribute("value",n);
+            }
+
+            //数字按钮绑定
+            butNum = document.getElementsByClassName("num_buttom");
+            for(var i in butNum){
+                butNum[i].count = i;
+                butNum[i].onclick = function(){
+                    num1.imputNum(butNum[this.count].getAttribute("value"));
+                    setShowNum(num1.getNumInt());
+                }
+            }
+
+            //运算符绑定
+            operation = document.getElementsByClassName("operation");
+            for(var i in operation)
+            {
+                operation[i].count = i;
+                operation[i].onclick = function(){
+                    num1.operation = operation[this.count].getAttribute("value");
+                    num1.num1ImportEnd = true;
+                }
+            }
+
+            //等于号绑定
+            var done = document.getElementById("done");
+            done.onclick = function(){
+                setShowNum(num1.operationNum());
+            }
+        }
+        </script>
+    </body>
+</html>

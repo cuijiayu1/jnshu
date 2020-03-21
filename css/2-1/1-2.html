@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>无标题文档</title>
+
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+    }
+
+    body{
+        background-color: #eff0f4;
+    }
+
+    input{
+        outline:none;
+    }
+
+    .header{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        height: 50px;
+        background-color: #5fc0cd;
+        color: #fff;
+    }
+
+    .header>*{
+        color: #fff;
+        line-height: 50px;
+    }
+
+    .left{
+        margin-left: 2rem;
+    }
+
+    .right{
+        margin-right: 2rem;
+    }
+
+    .center{
+        font-weight:600;
+        font-size: 1.1em;
+    }
+
+    .import{
+        margin-top: 15px;
+        display: flex;
+        flex: content;
+    }
+
+    .icon{
+        width: 75px;
+        height: 60px;
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-position:10px center;
+        
+        background-size: 30px;
+    }
+
+    .line{
+        margin-top: 7px;
+        margin-left: 50px;
+        width: 1px;
+        height: 45px;
+        background-color:#eaedee;
+    }
+
+    .inp{
+        width: 100%;
+        height: 60px;
+        border: none;
+        color: #bababa;
+        font-size: 1.2em;
+    }
+
+    .inp::placeholder{
+        color: #bababa;
+    }
+
+    .phone-num .icon{
+        background-image: url("img/phone.png");  
+    }
+
+    .password .icon{
+        background-image: url("img/password.png");  
+    }
+
+    .but{
+        margin-top:20px;
+        width: 100%;
+        height: 50px;
+        background-color: #5fc0cd;
+        border: none;
+        color: #fff;
+        font-size: 1.1em;
+    }
+
+</style>
+
+</head>
+
+<body>
+    <div class="header">
+        <a href="#" class="left">关闭</a>
+        <a href="#" class="center">登录</a>
+        <a href="#" class="right">注册</a>
+        
+    </div>
+
+    <div class="mian">
+        <div class="import phone-num">
+            <div class="icon"><div class="line"></div></div>
+            <input class="inp" placeholder="用户名"></input>
+        </div>
+
+        <div class="import password">
+            <div class="icon"><div class="line" ></div></div>
+            <input class="inp" type="password" placeholder="密码"></input>
+        </div>
+
+        <button class="but">登录</button>
+    </div>
+
+
+</body>
+</html>
